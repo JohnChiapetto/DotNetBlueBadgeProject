@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JXDevPlanner.WebMVC", "JXDevPlanner.WebMVC\JXDevPlanner.WebMVC.csproj", "{EF7E1DF9-242E-499B-BBE0-83C8D59DB3D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JXDevPlanner.Data", "JXDevPlanner.Data\JXDevPlanner.Data.csproj", "{B4D0DA30-1BB8-4F86-97E6-705CDC937AE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JXDevPlanner.Services", "JXDevPlanner.Services\JXDevPlanner.Services.csproj", "{905FCCC5-0B50-41DC-ABB5-E16B1F810AE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JXDevPlanner.Models", "JXDevPlanner.Models\JXDevPlanner.Models.csproj", "{78C218B5-8F28-4B1B-AF19-4E4C82F680E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{EF7E1DF9-242E-499B-BBE0-83C8D59DB3D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF7E1DF9-242E-499B-BBE0-83C8D59DB3D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF7E1DF9-242E-499B-BBE0-83C8D59DB3D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4D0DA30-1BB8-4F86-97E6-705CDC937AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4D0DA30-1BB8-4F86-97E6-705CDC937AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4D0DA30-1BB8-4F86-97E6-705CDC937AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4D0DA30-1BB8-4F86-97E6-705CDC937AE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{905FCCC5-0B50-41DC-ABB5-E16B1F810AE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{905FCCC5-0B50-41DC-ABB5-E16B1F810AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{905FCCC5-0B50-41DC-ABB5-E16B1F810AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{905FCCC5-0B50-41DC-ABB5-E16B1F810AE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78C218B5-8F28-4B1B-AF19-4E4C82F680E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78C218B5-8F28-4B1B-AF19-4E4C82F680E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78C218B5-8F28-4B1B-AF19-4E4C82F680E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78C218B5-8F28-4B1B-AF19-4E4C82F680E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
