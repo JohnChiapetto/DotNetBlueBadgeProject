@@ -60,5 +60,15 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JXDevPlanner.Data\JXDevPlanner.Data.csproj">
+      <Project>{b4d0da30-1bb8-4f86-97e6-705cdc937ae4}</Project>
+      <Name>JXDevPlanner.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JXDevPlanner.Models\JXDevPlanner.Models.csproj">
+      <Project>{78c218b5-8f28-4b1b-af19-4e4c82f680e4}</Project>
+      <Name>JXDevPlanner.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

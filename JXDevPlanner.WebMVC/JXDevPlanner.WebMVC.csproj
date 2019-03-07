@@ -181,7 +181,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -259,6 +258,16 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JXDevPlanner.Models\JXDevPlanner.Models.csproj">
+      <Project>{78c218b5-8f28-4b1b-af19-4e4c82f680e4}</Project>
+      <Name>JXDevPlanner.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JXDevPlanner.Services\JXDevPlanner.Services.csproj">
+      <Project>{905fccc5-0b50-41dc-abb5-e16b1f810ae6}</Project>
+      <Name>JXDevPlanner.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -21,8 +21,5 @@ namespace JXDevPlanner.Data
         [Display(Name ="Project was created")]
         public DateTimeOffset CreatedUTC { get; set; }
         public DateTimeOffset? ModifiedUTC { get; set; }
-
-        class ProjectDbContext : <Project> {
-        }
     }
 }
