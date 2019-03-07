@@ -5,19 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JXDevPlanner.Models
+namespace JXDevPlanner.Data
 {
     public class Project
     {
         [Key]
         public Guid ProjectID { get; set; }
+        [Required]
         public Guid Creator { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
         public string Description { get; set; }
-        public DateTimeOffset DateCreatedUTC { get; set; }
-        public DateTimeOffset DateModifiedUTC { get; set; }
+        [Required]
+        [Display(Name ="Project was created")]
+        public DateTimeOffset CreatedUTC { get; set; }
+        public DateTimeOffset? ModifiedUTC { get; set; }
 
         class ProjectDbContext : <Project> {
         }
