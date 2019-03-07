@@ -62,5 +62,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JXDevPlanner.Data\JXDevPlanner.Data.csproj">
+      <Project>{b4d0da30-1bb8-4f86-97e6-705cdc937ae4}</Project>
+      <Name>JXDevPlanner.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
