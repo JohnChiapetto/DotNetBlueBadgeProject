@@ -51,15 +51,26 @@ namespace JXDevPlanner.WebMVC
                 RequireUniqueEmail = true
             };
 
-            // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
+            // Validators for different modes of operation.....
+            PasswordValidator devPWValidator = new PasswordValidator
+            {
+                RequiredLength = 4,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false
+            };
+            PasswordValidator normalPWValidator = new PasswordValidator
             {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,
-                RequireUppercase = true,
+                RequireUppercase = true
             };
+
+            // Configure validation logic for passwords
+            manager.PasswordValidator = System.IO.File.Exists(@"C:\bin\lua53.exe") ? devPWValidator : normalPWValidator ;
 
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
