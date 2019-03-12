@@ -9,10 +9,15 @@ namespace JXDevPlanner.WebMVC.Controllers
     public class ProjectController : Controller
     {
 
-        // GET: Project
         public ActionResult Index()
         {
             return View();
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
     }
 }
