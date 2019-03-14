@@ -12,7 +12,8 @@ namespace JXDevPlanner.WebMVC.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var model = new ProjectListItem[0];
+            return View(model);
         }
 
         public ActionResult Create()
