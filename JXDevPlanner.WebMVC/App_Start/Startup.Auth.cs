@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using JXDevPlanner.WebMVC.Models;
 using JXDevPlanner.Models;
+using JXDevPlanner.Data;
 
 namespace JXDevPlanner.WebMVC
 {
