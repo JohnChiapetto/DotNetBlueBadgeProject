@@ -16,7 +16,7 @@ namespace JXDevPlanner.Data
         [Required]
         public string Title { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string Desc { get; set; }
         [Required]
         [Display(Name ="Project was created")]
         public DateTimeOffset CreatedUTC { get; set; }

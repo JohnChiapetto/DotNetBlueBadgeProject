@@ -10,10 +10,12 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using JXDevPlanner.WebMVC.Models;
+using JXDevPlanner.WebMVC;
 using JXDevPlanner.Models;
+using JXDevPlanner.Data;
 
 namespace JXDevPlanner.WebMVC
+
 {
     public class EmailService : IIdentityMessageService
     {

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using JXDevPlanner.WebMVC.Models;
 using JXDevPlanner.Models;
+using JXDevPlanner.Data;
 
 namespace JXDevPlanner.WebMVC.Controllers
 {
