@@ -1,0 +1,25 @@
+﻿@model IEnumerable<JXDevPlanner.Models.PlanListItem>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Created By</th>
+        <th>...On...</th>
+    </tr>
+    @foreach (JXDevPlanner.Models.PlanListItem item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatorName)
+            </td>
+        </tr>
+    }
+</table>

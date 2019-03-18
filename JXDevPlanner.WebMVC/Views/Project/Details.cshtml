@@ -55,6 +55,27 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit","Edit",new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit","Edit",new { id = Model.ProjectID }) |
     @Html.ActionLink("Back to List","Index")
 </p>
+<div>
+    @*<iframe id="x" width="100%" height="100%"></iframe>
+    <script>
+        var k = "/PlanItem/Index/" +"@Model.ProjectID";
+        x.contentDocument.location.href = k;
+    </script>*@
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Created By</th>
+        </tr>
+        @foreach (var item in Model.PlanItems)
+        {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => modelItem.Title)</td>
+            <td>@Html.DisplayFor(modelItem => modelItem.CreatorName)</td>
+        </tr>
+        }
+    </table>
+    @Html.ActionLink("Create New","Create","PlanItem",new { id = Model.ProjectID },new { })
+</div>

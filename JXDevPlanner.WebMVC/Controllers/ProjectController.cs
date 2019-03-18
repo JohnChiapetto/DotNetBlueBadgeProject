@@ -29,6 +29,31 @@ namespace JXDevPlanner.WebMVC.Controllers
             return View();
         }
 
+        public ActionResult Edit(Guid id)
+        {
+            var svc = CreateProjectService();
+
+            var project = svc.GetProject(id);
+            var model = new ProjectEdit(project);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ProjectEdit model) {
+            if (!ModelState.IsValid) return View(model);
+
+            var svc = CreateProjectService();
+
+            if (svc.EditProject(model)) {
+                TempData["SaveResult"] = "Your Project was updated.";
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProjectCreate model)
@@ -54,9 +79,18 @@ namespace JXDevPlanner.WebMVC.Controllers
         }
 
         public ActionResult Details(Guid id) {
-            var service = CreateProjectService();
-            var model = service.GetProjectById(id);
-            return View(model);
+            try
+            {
+                var service = CreateProjectService();
+                var model = service.GetProjectById(id);
+                var svc2 = new PlanItemService(Guid.Parse(User.Identity.GetUserId()));
+                model.PlanItems = svc2.GetPlans(model.ProjectID);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult Delete(Guid id,bool conf) {
@@ -70,7 +104,7 @@ namespace JXDevPlanner.WebMVC.Controllers
             {
                 if (svc.DeleteProject(id))
                 {
-                    TempData["deleteStatus"] = "Your Project was Deleted Successfully!";
+                    TempData["deleteStatus"] = "Your Project was deleted.";
                 }
                 else
                 {

@@ -17,6 +17,23 @@ namespace JXDevPlanner.Services
             _userId = userId;
         }
 
+        public Project GetProject(Guid id) {
+            using (var ctx = new ApplicationDbContext()) {
+                return ctx.Projects.Where(e => e.ProjectID == id).Single();
+            }
+        }
+
+        public bool EditProject(ProjectEdit model) {
+            using (var ctx = new ApplicationDbContext()) {
+                var entity = ctx.Projects.Where(e => e.ProjectID == model.ProjectID).Single();
+                entity.Title = model.Title;
+                entity.Desc = model.Desc;
+                //ctx.Projects.Remove(ctx.Projects.Where(e => e.ProjectID == model.ProjectID).Single());
+                //ctx.Projects.Add(entity);
+                return ctx.TrySave();
+            }
+        }
+
         public bool CreateProject(ProjectCreate model)
         {
             var entity = new Project()
