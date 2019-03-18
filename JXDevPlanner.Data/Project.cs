@@ -10,7 +10,7 @@ namespace JXDevPlanner.Data
     public class Project
     {
         [Key]
-        public Guid ProjectID { get; set; }
+        public Guid ProjectID { get; set; } = Guid.NewGuid();
         [Required]
         public Guid Creator { get; set; }
         [Required]

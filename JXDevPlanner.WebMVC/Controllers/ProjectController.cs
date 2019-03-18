@@ -1,4 +1,5 @@
-﻿using JXDevPlanner.Models;
+﻿using JXDevPlanner.Data;
+using JXDevPlanner.Models;
 using JXDevPlanner.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -39,7 +40,6 @@ namespace JXDevPlanner.WebMVC.Controllers
             if (service.CreateProject(model))
             {
                 TempData["SaveResult"] = "Your Project was created.";
-                //ViewBag.SaveResult = "Your Project was created.";
                 return RedirectToAction("Index");
             }
 
@@ -53,10 +53,31 @@ namespace JXDevPlanner.WebMVC.Controllers
             return service;
         }
 
-        public ActionResult Detail(Guid projectId) {
+        public ActionResult Details(Guid id) {
             var service = CreateProjectService();
-            var model = service.GetProjectById(projectId);
+            var model = service.GetProjectById(id);
             return View(model);
+        }
+
+        public ActionResult Delete(Guid id,bool conf) {
+            ProjectService svc = CreateProjectService();
+
+            if (conf)
+            {
+                return View(svc.CreateProjectDeleteModel(id));
+            }
+            else
+            {
+                if (svc.DeleteProject(id))
+                {
+                    TempData["deleteStatus"] = "Your Project was Deleted Successfully!";
+                }
+                else
+                {
+                    TempData["deleteStatus"] = "There was a problem deleting your project.";
+                }
+                return RedirectToAction("Index");
+            }
         }
 
     }

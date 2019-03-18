@@ -29,7 +29,7 @@ namespace JXDevPlanner.Services
             using (var ctx = new ApplicationDbContext())
             {
                 ctx.Projects.Add(entity);
-                return ctx.SaveChanges() == 1;
+                return ctx.TrySave();
             }
         }
 
@@ -56,7 +56,25 @@ namespace JXDevPlanner.Services
                     ctx
                         .Projects
                         .Single(e => e.ProjectID == id && e.Creator == _userId);
-                return new ProjectDetail(entity);
+                ProjectDetail pd = new ProjectDetail(entity);
+                pd.CreatorName = ctx.Users.Where(e => e.Id == pd.Creator.ToString()).Single().UserName;
+                return pd;
+            }
+        }
+
+        public bool DeleteProject(Guid id) {
+            using (var ctx = new ApplicationDbContext())
+            {
+                ctx.Projects.Remove(ctx.Projects.Where(e => e.ProjectID == id).Single());
+                return ctx.TrySave();
+            }
+        }
+        public ProjectDelete CreateProjectDeleteModel(Guid id) {
+            using (var ctx = new ApplicationDbContext())
+            {
+                ProjectDelete model = new ProjectDelete(ctx.Projects.Where(e => e.ProjectID == id).Single());
+                model.OwnerName = ctx.Users.Where(e => e.Id == model.Owner.ToString()).Single().UserName;
+                return model;
             }
         }
     }

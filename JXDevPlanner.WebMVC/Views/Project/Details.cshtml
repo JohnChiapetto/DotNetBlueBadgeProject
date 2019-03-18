@@ -1,7 +1,9 @@
 ﻿@model JXDevPlanner.Models.ProjectDetail
+@using Microsoft.AspNet.Identity.Owin
+@using JXDevPlanner.Data;
 
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = Model.Title;
 }
 
 <h2>Detail</h2>
@@ -31,7 +33,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Creator)
+            @Html.DisplayFor(model => model.CreatorName)
         </dd>
 
         <dt>
@@ -53,6 +55,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit","Edit",new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List","Index")
 </p>

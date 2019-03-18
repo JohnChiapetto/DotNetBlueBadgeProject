@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JXDevPlanner.Models", "JXDe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JXDevPlanner.Contracts", "JXDevPlanner.Contracts\JXDevPlanner.Contracts.csproj", "{F3A34CA9-841E-482A-B8C6-43C90B9335B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JXDevPlanner.Console", "JXDevPlanner.Console\JXDevPlanner.Console.csproj", "{EDDBC2E7-1DFD-4C87-A4B5-E46F5F850016}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F3A34CA9-841E-482A-B8C6-43C90B9335B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3A34CA9-841E-482A-B8C6-43C90B9335B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3A34CA9-841E-482A-B8C6-43C90B9335B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDDBC2E7-1DFD-4C87-A4B5-E46F5F850016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDDBC2E7-1DFD-4C87-A4B5-E46F5F850016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDDBC2E7-1DFD-4C87-A4B5-E46F5F850016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDDBC2E7-1DFD-4C87-A4B5-E46F5F850016}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

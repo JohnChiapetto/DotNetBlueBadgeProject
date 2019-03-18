@@ -9,9 +9,9 @@ namespace JXDevPlanner.Models
 {
     public class ProjectCreate {
         [Required]
-        public string Title;
-        [Display(Name ="Description")]
-        public string Desc;
+        public string Title { get; set; }
+        [Display(Name = "Description")]
+        public string Desc { get; set; }
 
         public override string ToString() => Title;
     }

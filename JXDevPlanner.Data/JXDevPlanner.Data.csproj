@@ -65,7 +65,12 @@
     <Compile Include="Migrations\201903151602359_Changed %27Description%27 to %27Desc%27.Designer.cs">
       <DependentUpon>201903151602359_Changed %27Description%27 to %27Desc%27.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903151844151_Why.cs" />
+    <Compile Include="Migrations\201903151844151_Why.Designer.cs">
+      <DependentUpon>201903151844151_Why.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="PlanItem.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,6 +81,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903151602359_Changed %27Description%27 to %27Desc%27.resx">
       <DependentUpon>201903151602359_Changed %27Description%27 to %27Desc%27.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903151844151_Why.resx">
+      <DependentUpon>201903151844151_Why.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
