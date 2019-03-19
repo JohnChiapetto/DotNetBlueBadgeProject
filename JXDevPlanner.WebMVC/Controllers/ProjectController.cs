@@ -92,18 +92,11 @@ namespace JXDevPlanner.WebMVC.Controllers
         }
 
         public ActionResult Details(Guid id) {
-            try
-            {
-                var service = CreateProjectService();
-                var model = service.GetProjectById(id);
-                var svc2 = new PlanItemService(Guid.Parse(User.Identity.GetUserId()));
-                model.PlanItems = svc2.GetPlanListItems(model.ProjectID);
-                return View(model);
-            }
-            catch (Exception e)
-            {
-                return RedirectToAction("Index");
-            }
+            var service = CreateProjectService();
+            var model = service.GetProjectById(id);
+            var svc2 = new PlanItemService(Guid.Parse(User.Identity.GetUserId()));
+            model.PlanItems = svc2.GetPlanListItems(model.ProjectID);
+            return View(model);
         }
 
         public ActionResult Delete(Guid id,bool conf) {

@@ -37,9 +37,7 @@ namespace JXDevPlanner.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<PlanItem> PlanItems { get; set; }
 
-        public bool TrySave() {
-            return SaveChanges() == 1;
-        }
+        public bool TrySave() => SaveChanges() > 0;
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

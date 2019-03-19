@@ -54,10 +54,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountListItem.cs" />
     <Compile Include="PlanItemCreate.cs" />
     <Compile Include="PlanItemDelete.cs" />
     <Compile Include="PlanItemEdit.cs" />
-    <Compile Include="PlanItemModel.cs" />
     <Compile Include="PlanListItem.cs" />
     <Compile Include="ProjectCreate.cs" />
     <Compile Include="ProjectDelete.cs" />

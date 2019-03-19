@@ -15,8 +15,9 @@ namespace JXDevPlanner.WebMVC.Controllers
         // GET: PlanItem
         public ActionResult Index(Guid projectID)
         {
-            PlanItemService svc = CreateService();
-            return View(svc.GetPlanListItems(projectID));
+            //PlanItemService svc = CreateService();
+            //return View(svc.GetPlanListItems(projectID));
+            return RedirectToAction("Details","Project",new { id = projectID });
         }
 
         private PlanItemService CreateService()
@@ -48,11 +49,39 @@ namespace JXDevPlanner.WebMVC.Controllers
             return View(model);
         }
 
-        public ActionResult Edit() { return View(); }
+        public ActionResult EditById(Guid id) {
+            var svc = CreateService();
+            var model = new PlanItemEdit(svc.GetPlanItemById(id));
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Save(PlanItemEdit model) {
+            return Edit(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(PlanItemEdit model) {
+            var svc = CreateService();
+
+
+            if (svc.EditPlanItem(model))
+            {
+                TempData["SaveResult"] = "Your changes have been saved.";
+                return RedirectToAction("Details","Project",new { id = model.ProjectID });
+            }
+
+            return View(model);
+        }
+
         public ActionResult Delete(Guid id) {
             var svc = new PlanItemService(Guid.Parse(User.Identity.GetUserId()));
             return View(svc.GetPlanItemById(id));
         }
-        public ActionResult Details() { return View(); }
+        public ActionResult Details() {
+            return View();
+        }
     }
 }

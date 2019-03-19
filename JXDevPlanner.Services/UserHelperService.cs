@@ -1,4 +1,5 @@
 ﻿using JXDevPlanner.Data;
+using JXDevPlanner.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,15 @@ namespace JXDevPlanner.Services
                 }
             }
             return false;
+        }
+
+        public static AccountListItem[] GetAccountListItems() {
+            using (var ctx = new ApplicationDbContext())
+            {
+                List<AccountListItem> items = new List<AccountListItem>();
+                foreach (var user in ctx.Users) items.Add(new AccountListItem(user));
+                return items.ToArray();
+            }
         }
     }
 }

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<JXDevPlanner.Models.AccountListItem>
+@{
+    ViewBag.Title = "ListUsers";
+}
+
+<h2>ListUsers</h2>
+
+<table class="table">
+    <tr>
+        <th>UserID</th>
+        <th>UserName</th>
+        <th>Roles</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.UserID</td>
+            <td>@item.UserName</td>
+            <td>@item.RolesString</td>
+        </tr>
+    }
+</table>

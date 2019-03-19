@@ -73,11 +73,18 @@
             <th>Name</th>
             <th>Created By</th>
         </tr>
-        @foreach (var item in Model.PlanItems)
+        @foreach (var item in new JXDevPlanner.Data.ApplicationDbContext().PlanItems.ToArray())
         {
         <tr>
             <td>@item.Name</td>
-            <td>@item.CreatorName</td>
+            <td>
+                @(new JXDevPlanner.Data.ApplicationDbContext().Users.Where(e=>e == null?false:e.Id == item.CreatorID.ToString()).Single().UserName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit","EditById","PlanItem",new { id = item.PlanItemID },new { });
+                @Html.ActionLink("Delete","Delete","PlanItem",new { id = item.PlanItemID },new { });
+                @Html.ActionLink("Details","Details","PlanItem",new { id = item.PlanItemID },new { });
+            </td>
         </tr>
         }
     </table>

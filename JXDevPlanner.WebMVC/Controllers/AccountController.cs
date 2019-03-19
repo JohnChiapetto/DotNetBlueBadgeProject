@@ -12,6 +12,7 @@ using JXDevPlanner.WebMVC.Models;
 using JXDevPlanner.Models;
 using JXDevPlanner.Data;
 using Microsoft.AspNet.Identity.EntityFramework;
+using JXDevPlanner.Services;
 
 namespace JXDevPlanner.WebMVC.Controllers
 {
@@ -40,10 +41,7 @@ namespace JXDevPlanner.WebMVC.Controllers
                 {
                     CreateRole(RoleManager,"User");
                 }
-                if (!ctx.TrySave())
-                {
-                    throw new Exception("ERROR SAVING CHANGES TO DATABASE!");
-                }
+                ctx.SaveChanges();
             }
         }
 
@@ -146,10 +144,7 @@ namespace JXDevPlanner.WebMVC.Controllers
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
-            if (!await SignInManager.HasBeenVerifiedAsync())
-            {
-                return View("Error");
-            }
+            if (!await SignInManager.HasBeenVerifiedAsync()) return View("Error");
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
@@ -160,10 +155,7 @@ namespace JXDevPlanner.WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            if (!ModelState.IsValid) return View(model);
 
             // The following code protects for brute force attacks against the two factor codes. 
             // If a user enters incorrect codes for a specified amount of time then the user account 
@@ -181,6 +173,11 @@ namespace JXDevPlanner.WebMVC.Controllers
                     ModelState.AddModelError("", "Invalid code.");
                     return View(model);
             }
+        }
+
+        public ActionResult ListUsers() {
+            var model = UserHelperService.GetAccountListItems();
+            return View(model);
         }
 
         //

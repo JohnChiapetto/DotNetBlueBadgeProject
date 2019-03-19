@@ -13,10 +13,12 @@ namespace JXDevPlanner.Models
         public string CreatorName { get; set; }
         public Guid Creator { get; set; }
         public DateTimeOffset CreatedUTC { get; set; }
+        public Guid PlanItemId { get; set; }
 
         public PlanListItem(PlanItem item) {
-            this.Name = item.Name;
-            this.Creator = item.CreatorID;
+            this.PlanItemId = item.PlanItemID;
+            this.Name       = item.Name;
+            this.Creator    = item.CreatorID;
             this.CreatedUTC = item.CreatedUTC;
         }
     }

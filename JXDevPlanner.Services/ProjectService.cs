@@ -28,6 +28,7 @@ namespace JXDevPlanner.Services
                 var entity = ctx.Projects.Where(e => e.ProjectID == model.ProjectID).Single();
                 entity.Title = model.Title;
                 entity.Desc = model.Desc;
+                entity.ModifiedUTC = DateTimeOffset.Now;
                 //ctx.Projects.Remove(ctx.Projects.Where(e => e.ProjectID == model.ProjectID).Single());
                 //ctx.Projects.Add(entity);
                 return ctx.TrySave();
@@ -72,9 +73,14 @@ namespace JXDevPlanner.Services
                 var entity =
                     ctx
                         .Projects
-                        .Single(e => e.ProjectID == id && e.Creator == _userId);
+                        .Single(e => true/*e.ProjectID == id && e.Creator == _userId*/);
                 ProjectDetail pd = new ProjectDetail(entity);
                 pd.CreatorName = ctx.Users.Where(e => e.Id == pd.Creator.ToString()).Single().UserName;
+                PlanItem[] items = ctx.PlanItems.Where(e => true).ToArray();
+                pd.PlanItems = new PlanListItem[items.Length];
+                for (int i = 0; i < pd.PlanItems.Length; i++) {
+                    pd.PlanItems[i] = new PlanListItem(items[i]);
+                }
                 return pd;
             }
         }

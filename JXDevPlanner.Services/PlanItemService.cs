@@ -52,5 +52,16 @@ namespace JXDevPlanner.Services
                 return ctx.TrySave();
             }
         }
+
+        public bool EditPlanItem(PlanItemEdit model)
+        {
+            using (var ctx = new ApplicationDbContext()) {
+                PlanItem entity    = ctx.PlanItems.Where(e => e.PlanItemID == model.PlanID).Single();
+                entity.Name        = model.Name;
+                entity.Details     = model.Detail;
+                entity.ModifiedUTC = DateTimeOffset.Now;
+                return ctx.TrySave();
+            }
+        }
     }
 }
