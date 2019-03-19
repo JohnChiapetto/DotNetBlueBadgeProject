@@ -17,7 +17,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Name, new { @class = "form-control",id="NameIn" })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Detail, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Detail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Detail, new { @class = "form-control",id="DetailIn" })
                 @Html.ValidationMessageFor(model => model.Detail, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -38,6 +38,10 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        <a id="submitLink">Create New</a>
+        <script>
+            submitLink.href = "window.location.href = \"/Project/AddPlanItem/?projectID=958484a1-d94a-4e46-8a25-099a2dd61a87&name=\" + Name.value + \"&detail=\" + DetailIn.value;";
+        </script>
+        @*@Html.ActionLink("Back to List","Index")*@
+    </div>

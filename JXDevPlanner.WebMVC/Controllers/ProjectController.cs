@@ -71,11 +71,24 @@ namespace JXDevPlanner.WebMVC.Controllers
             return View(model);
         }
 
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult CreatePlanItem(Guid projectID) {
+            return RedirectToAction("Create","PlanItem",new { projectID = projectID,b = true });
+        }
+
         private ProjectService CreateProjectService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new ProjectService(userId);
             return service;
+        }
+
+        public ActionResult AddPlanItem(Guid projectID,string name,string detail) {
+            var pic = new PlanItemCreate(projectID);
+            pic.Name = name;
+            pic.Detail = detail;
+            return RedirectToAction("Create","PlanItem",new { model = pic });
         }
 
         public ActionResult Details(Guid id) {
@@ -84,7 +97,7 @@ namespace JXDevPlanner.WebMVC.Controllers
                 var service = CreateProjectService();
                 var model = service.GetProjectById(id);
                 var svc2 = new PlanItemService(Guid.Parse(User.Identity.GetUserId()));
-                model.PlanItems = svc2.GetPlans(model.ProjectID);
+                model.PlanItems = svc2.GetPlanListItems(model.ProjectID);
                 return View(model);
             }
             catch (Exception e)

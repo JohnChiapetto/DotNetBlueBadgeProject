@@ -1,6 +1,4 @@
 ﻿@model JXDevPlanner.Models.ProjectDetail
-@using Microsoft.AspNet.Identity.Owin
-@using JXDevPlanner.Data;
 
 @{
     ViewBag.Title = Model.Title;
@@ -64,7 +62,13 @@
         var k = "/PlanItem/Index/" +"@Model.ProjectID";
         x.contentDocument.location.href = k;
     </script>*@
-    <table>
+    <div id="state_stable"></div>
+    <div id="state_working"></div>
+    <div id="state_indev"></div>
+    <div id="state_planned"></div>
+    <div id="state_promised"></div>
+    <div id="state_proposed"></div>
+    <table class="table">
         <tr>
             <th>Name</th>
             <th>Created By</th>
@@ -72,10 +76,11 @@
         @foreach (var item in Model.PlanItems)
         {
         <tr>
-            <td>@Html.DisplayFor(modelItem => modelItem.Title)</td>
-            <td>@Html.DisplayFor(modelItem => modelItem.CreatorName)</td>
+            <td>@item.Name</td>
+            <td>@item.CreatorName</td>
         </tr>
         }
     </table>
-    @Html.ActionLink("Create New","Create","PlanItem",new { id = Model.ProjectID },new { })
+    <a href="/Project/CreatePlanItem/?projectID=958484a1-d94a-4e46-8a25-099a2dd61a87">Create New</a>
+    @*@Html.ActionLink("Create New","CreatePlanItem/%3fprojectID=" + Model.ProjectID,"Project",new { id = Model.ProjectID },new { })*@
 </div>

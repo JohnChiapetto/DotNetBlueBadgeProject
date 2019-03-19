@@ -16,7 +16,7 @@ namespace JXDevPlanner.Models
         public DateTimeOffset CreatedUTC { get; set; }
         public DateTimeOffset? ModifiedUTC { get; set; }
         public string CreatorName { get; set; }
-        public PlanItem[] PlanItems { get; set; }
+        public PlanListItem[] PlanItems { get; set; }
 
         public ProjectDetail(Project p) {
             this.Title       = p.Title;

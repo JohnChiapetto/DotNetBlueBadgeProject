@@ -26,7 +26,7 @@ namespace JXDevPlanner.WebMVC.Controllers
             return svc;
         }
 
-        public ActionResult Create(Guid projectID) {
+        public ActionResult Create(Guid projectID,bool b) {
             var model = new PlanItemCreate(projectID);
             return View(model);
         }
@@ -42,10 +42,17 @@ namespace JXDevPlanner.WebMVC.Controllers
             if (service.CreatePlanItem(model))
             {
                 TempData["SaveResult"] = "Your PlanItem was created.";
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","Project",new { id=model.ProjectID });
             }
 
             return View(model);
         }
+
+        public ActionResult Edit() { return View(); }
+        public ActionResult Delete(Guid id) {
+            var svc = new PlanItemService(Guid.Parse(User.Identity.GetUserId()));
+            return View(svc.GetPlanItemById(id));
+        }
+        public ActionResult Details() { return View(); }
     }
 }

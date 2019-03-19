@@ -17,6 +17,7 @@ namespace JXDevPlanner.Services
             _userId = userId;
         }
 
+        public PlanItem GetPlanItemById(Guid id) { return new ApplicationDbContext().PlanItems.Where(e => e.PlanItemID == id).Single(); }
         public PlanItem[] GetPlans(Guid projectID) {
             return new ApplicationDbContext().PlanItems.Where(e => e.ProjectID == projectID && e.CreatorID == _userId).ToArray();
         }
@@ -25,7 +26,11 @@ namespace JXDevPlanner.Services
                 PlanItem[] items = GetPlans(projectID);
                 PlanListItem[] listItems = new PlanListItem[items.Length];
                 int i = 0;
-                foreach (var item in items) listItems[i++] = new PlanListItem(item);
+                foreach (var item in items)
+                {
+                    listItems[i] = new PlanListItem(item);
+                    listItems[i++].CreatorName = ctx.Users.Where(e => e.Id == _userId.ToString()).Single().UserName;
+                }
                 return listItems;
             }
         }

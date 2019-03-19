@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using JXDevPlanner.WebMVC.Models;
 using JXDevPlanner.Models;
 using JXDevPlanner.Data;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace JXDevPlanner.WebMVC.Controllers
 {
@@ -19,17 +20,48 @@ namespace JXDevPlanner.WebMVC.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
         public AccountController()
         {
+            using (var ctx = new ApplicationDbContext())
+            {
+                _roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(ctx));
+                
+                if (!RoleManager.RoleExists("Admin"))
+                {
+                    HasAdminUser = false;
+                    // first we create Admin rool   
+                    var role = new IdentityRole();
+                    role.Name = "Admin";
+                    RoleManager.Create(role);
+                }
+                if (!RoleManager.RoleExists("User"))
+                {
+                    CreateRole(RoleManager,"User");
+                }
+                if (!ctx.TrySave())
+                {
+                    throw new Exception("ERROR SAVING CHANGES TO DATABASE!");
+                }
+            }
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager ) : this()
         {
             UserManager = userManager;
             SignInManager = signInManager;
         }
 
+        public bool HasAdminUser { get; private set; } = true;
+
+        public RoleManager<IdentityRole> RoleManager
+        {
+            get
+            {
+                return _roleManager;
+            }
+        }
         public ApplicationSignInManager SignInManager
         {
             get
@@ -91,6 +123,21 @@ namespace JXDevPlanner.WebMVC.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+
+        void CreateRole(RoleManager<IdentityRole> roleManager,string name)
+        {
+            var role = new IdentityRole();
+            role.Name = name;
+            roleManager.Create(role);
+        }
+        void AssignRoleTo(UserManager<ApplicationUser> userManager,Guid userID,string role)
+        {
+            AssignRoleTo(userManager,userID.ToString(),role);
+        }
+        void AssignRoleTo(UserManager<ApplicationUser> userManager,string userID,string role)
+        {
+            userManager.AddToRole(userID,role);
         }
 
         //
@@ -160,8 +207,9 @@ namespace JXDevPlanner.WebMVC.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    AssignRoleTo(UserManager,Guid.Parse(user.Id),user.UserName == "root" || !HasAdminUser ? "Admin" : "User");
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
