@@ -264,6 +264,7 @@
     <Content Include="Views\PlanItem\Delete.cshtml" />
     <Content Include="Views\PlanItem\EditById.cshtml" />
     <Content Include="Views\Account\ListUsers.cshtml" />
+    <Content Include="Views\PlanItem\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -73,7 +73,7 @@
             <th>Name</th>
             <th>Created By</th>
         </tr>
-        @foreach (var item in new JXDevPlanner.Data.ApplicationDbContext().PlanItems.ToArray())
+        @foreach (var item in new JXDevPlanner.Data.ApplicationDbContext().PlanItems.Where(e=>e.ProjectID==Model.ProjectID).ToArray())
         {
         <tr>
             <td>@item.Name</td>
@@ -81,13 +81,13 @@
                 @(new JXDevPlanner.Data.ApplicationDbContext().Users.Where(e=>e == null?false:e.Id == item.CreatorID.ToString()).Single().UserName)
             </td>
             <td>
-                @Html.ActionLink("Edit","EditById","PlanItem",new { id = item.PlanItemID },new { });
-                @Html.ActionLink("Delete","Delete","PlanItem",new { id = item.PlanItemID },new { });
-                @Html.ActionLink("Details","Details","PlanItem",new { id = item.PlanItemID },new { });
+                @Html.ActionLink("Edit","EditById","PlanItem",new { id = item.PlanItemID },new { }) | 
+                @Html.ActionLink("Delete","Delete","PlanItem",new { id = item.PlanItemID },new { }) | 
+                @Html.ActionLink("Details","Details","PlanItem",new { id = item.PlanItemID },new { })
             </td>
         </tr>
         }
     </table>
-    <a href="/Project/CreatePlanItem/?projectID=958484a1-d94a-4e46-8a25-099a2dd61a87">Create New</a>
+    <a href="/Project/CreatePlanItem/?projectID=@Model.ProjectID">Create New</a>
     @*@Html.ActionLink("Create New","CreatePlanItem/%3fprojectID=" + Model.ProjectID,"Project",new { id = Model.ProjectID },new { })*@
 </div>

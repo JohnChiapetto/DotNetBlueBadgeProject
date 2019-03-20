@@ -57,6 +57,7 @@
     <Compile Include="AccountListItem.cs" />
     <Compile Include="PlanItemCreate.cs" />
     <Compile Include="PlanItemDelete.cs" />
+    <Compile Include="PlanItemDetails.cs" />
     <Compile Include="PlanItemEdit.cs" />
     <Compile Include="PlanListItem.cs" />
     <Compile Include="ProjectCreate.cs" />

@@ -12,9 +12,11 @@ namespace JXDevPlanner.Services
     {
         public PlanItemService(Guid userId) : base(userId) { }
 
-        public PlanItem GetPlanItemById(Guid id) { return new ApplicationDbContext().PlanItems.Where(e => e.PlanItemID == id).Single(); }
+        public PlanItem GetPlanItemById(Guid id) {
+            return Context.PlanItems.Where(e => e.PlanItemID == id).Single();
+        }
         public PlanItem[] GetPlans(Guid projectID) {
-            return new ApplicationDbContext().PlanItems.Where(e => e.ProjectID == projectID && e.CreatorID == _userId).ToArray();
+            return Context.PlanItems.Where(e => e.ProjectID == projectID && e.CreatorID == _userId).ToArray();
         }
         public PlanListItem[] GetPlanListItems(Guid projectID) {
             PlanItem[] items = GetPlans(projectID);
@@ -51,16 +53,26 @@ namespace JXDevPlanner.Services
             entity.Name        = model.Name;
             entity.Details     = model.Detail;
             entity.ModifiedUTC = DateTimeOffset.Now;
+            entity.LastModifiedBy = _userId;
             return Context.TrySave();
         }
 
-        public void DeletePlanItem(Guid id) {
+        public Guid DeletePlanItem(Guid id) {
             PlanItem val = GetPlanItemById(id);
-            // Context.PlanItems.Attach(val);
-            Context.PlanItems.Remove(val);
+            var pid = GetProjectIdFor(id);
+            //Context.PlanItems.Attach(val);
+            //if (Context.PlanItems.AsNoTracking().Contains(val))
+            //{
+                Context.PlanItems.Remove(val);
+            //}
             Context.TrySave();
+            return pid;
         }
 
+        public Project GetProjectFor(Guid id) {
+            var q = new ProjectService(_userId).GetProject(GetProjectIdFor(id));
+            return q;
+        }
         public Guid GetProjectIdFor(Guid id) {
             return GetPlanItemById(id).ProjectID;
         }

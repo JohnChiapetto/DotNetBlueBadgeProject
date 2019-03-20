@@ -32,6 +32,7 @@ namespace JXDevPlanner.Services
         {
             var entity = new Project()
             {
+                ProjectID = Guid.NewGuid(),
                 Creator = _userId,
                 Title = model.Title,
                 Desc = model.Desc,
@@ -58,7 +59,7 @@ namespace JXDevPlanner.Services
             var entity =
                 Context
                     .Projects
-                    .Single(e => true/*e.ProjectID == id && e.Creator == _userId*/);
+                    .Single(e => e.ProjectID == id && e.Creator == _userId);
             ProjectDetail pd = new ProjectDetail(entity);
             pd.CreatorName = Context.Users.Where(e => e.Id == pd.Creator.ToString()).Single().UserName;
             PlanItem[] items = Context.PlanItems.Where(e => true).ToArray();

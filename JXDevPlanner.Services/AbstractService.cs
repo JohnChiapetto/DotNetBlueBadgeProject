@@ -10,10 +10,13 @@ namespace JXDevPlanner.Services
 {
     public abstract class AbstractService
     {
-        protected static ApplicationDbContext Context = new ApplicationDbContext();
+        public static ApplicationDbContext Context;
 
         protected Guid _userId;
 
-        public AbstractService(Guid userId) { this._userId = userId; }
+        public AbstractService(Guid userId) {
+            if (Context == null) Context = new ApplicationDbContext();
+            this._userId = userId;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using JXDevPlanner.Models;
+﻿using JXDevPlanner.Data;
+using JXDevPlanner.Models;
 using JXDevPlanner.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -83,12 +84,18 @@ namespace JXDevPlanner.WebMVC.Controllers
 
         public ActionResult ConfirmedDelete(Guid id,bool confirmed) {
             var svc = CreateService();
-            svc.DeletePlanItem(id);
-            return RedirectToAction("Index",new { projectID = svc.GetProjectIdFor(id) });
+            var pid = svc.DeletePlanItem(id);
+            return RedirectToAction("Index",new { projectID = pid });
         }
 
-        public ActionResult Details() {
-            return View();
+        public ActionResult Details(Guid id) {
+            var svc = CreateService();
+            var item = svc.GetPlanItemById(id);
+            var model = new PlanItemDetails(item);
+            model.CreatorName = new ApplicationDbContext().Users.Where(e => e.Id == model.CreatorID.ToString()).Single().UserName;
+            model.LastModifierName = new ApplicationDbContext().Users.Where(e => e.Id == model.LastModifiedBy.ToString()).Single().UserName;
+            model.ProjectName = svc.GetProjectFor(id).Title;//AbstractService.Context.Projects.Where(e => e.ProjectID == model.ProjectID).Single().Title;
+            return View(model);
         }
     }
 }

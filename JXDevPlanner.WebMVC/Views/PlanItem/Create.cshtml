@@ -41,7 +41,7 @@
     <div>
         <a id="submitLink">Create New</a>
         <script>
-            submitLink.href = "window.location.href = \"/Project/AddPlanItem/?projectID=958484a1-d94a-4e46-8a25-099a2dd61a87&name=\" + Name.value + \"&detail=\" + DetailIn.value;";
+            submitLink.href = "window.location.href = \"/Project/AddPlanItem/?projectID=@Model.ProjectID&name=\" + Name.value + \"&detail=\" + DetailIn.value;";
         </script>
         @*@Html.ActionLink("Back to List","Index")*@
     </div>
