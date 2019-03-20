@@ -78,8 +78,15 @@ namespace JXDevPlanner.WebMVC.Controllers
 
         public ActionResult Delete(Guid id) {
             var svc = new PlanItemService(Guid.Parse(User.Identity.GetUserId()));
-            return View(svc.GetPlanItemById(id));
+            return View(new PlanItemDelete(svc.GetPlanItemById(id)));
         }
+
+        public ActionResult ConfirmedDelete(Guid id,bool confirmed) {
+            var svc = CreateService();
+            svc.DeletePlanItem(id);
+            return RedirectToAction("Index",new { projectID = svc.GetProjectIdFor(id) });
+        }
+
         public ActionResult Details() {
             return View();
         }

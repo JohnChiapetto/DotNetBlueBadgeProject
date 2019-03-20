@@ -23,6 +23,20 @@ namespace JXDevPlanner.Data
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        //public DbSet this[string str] {
+        //    get {
+        //        switch (str) {
+        //            case "Projects":
+        //                return Projects;
+        //            case "PlanItems":
+        //                return PlanItems;
+        //            case "Users":
+        //                return Users;
+        //        }
+        //        return null;
+        //    }
+        //}
+
         public ApplicationDbContext()
             : base("DefaultConnection",throwIfV1Schema: false)
         {

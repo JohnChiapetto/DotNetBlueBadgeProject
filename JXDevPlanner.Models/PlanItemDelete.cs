@@ -13,11 +13,20 @@ namespace JXDevPlanner.Models
         public Guid PlanItemId { get; set; }
         public string Name { get; set; }
 
+        public PlanItemDelete() {
+            var s = $"{this.PlanItemId}";
+        }
         public PlanItemDelete(PlanItem item)
         {
             this.ProjectId = item.ProjectID;
-            this.PlanItemId = item.PlanItemID;
+            this.PlanItemId = Guid.Parse(item.PlanItemID.ToString());
             this.Name = item.Name;
+        }
+        public PlanItemDelete(PlanItemDelete model)
+        {
+            this.ProjectId = model.ProjectId;
+            this.PlanItemId = model.ProjectId;
+            this.Name = model.Name;
         }
     }
 }

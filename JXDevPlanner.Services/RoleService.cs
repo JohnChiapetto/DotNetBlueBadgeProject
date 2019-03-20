@@ -11,17 +11,13 @@ using System.Threading.Tasks;
 
 namespace JXDevPlanner.Services
 {
-    public class RoleService
+    public class RoleService : AbstractService
     {
-        Guid _userId;
+        //Guid _userId;
         ApplicationDbContext context = new ApplicationDbContext();
         RoleManager<IdentityRole> roleManager;
 
-        public RoleService(Guid userId)
-        {
-            this._userId = userId;
-            this.roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-        }
+        public RoleService(Guid userId) : base(userId) { this.roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context)); }
 
         public IdentityRole[] GetRoles() { return GetRoles(e => true); }
         public IdentityRole[] GetRoles(Expression<Func<IdentityRole,bool>> query)
