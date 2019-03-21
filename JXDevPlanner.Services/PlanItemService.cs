@@ -38,6 +38,7 @@ namespace JXDevPlanner.Services
                 Name = model.Name,
                 Details = model.Detail,
                 ProjectID = model.ProjectID,
+                Category = model.Category,
                 CreatorID = _userId,
                 LastModifiedBy = _userId,
                 CreatedUTC = DateTimeOffset.Now,

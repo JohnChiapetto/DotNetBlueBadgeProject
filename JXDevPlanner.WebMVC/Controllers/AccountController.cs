@@ -13,6 +13,7 @@ using JXDevPlanner.Models;
 using JXDevPlanner.Data;
 using Microsoft.AspNet.Identity.EntityFramework;
 using JXDevPlanner.Services;
+using System.Collections.Generic;
 
 namespace JXDevPlanner.WebMVC.Controllers
 {
@@ -21,28 +22,32 @@ namespace JXDevPlanner.WebMVC.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private RoleManager<IdentityRole> _roleManager;
+        private RoleManager<IdentityRole> _roleManager => SRoleManager;
+        public static RoleManager<IdentityRole> SRoleManager;
+        public UserRoleService userRoleService;
 
         public AccountController()
         {
-            using (var ctx = new ApplicationDbContext())
-            {
-                _roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(ctx));
+            var svc = new AccountService(Guid.NewGuid());
+            var ctx = AbstractService.Context;
+            //{
+                if (SRoleManager == null)
+                    SRoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(ctx));
                 
-                if (!RoleManager.RoleExists("Admin"))
+                if (!FRoleManager.RoleExists("Admin"))
                 {
                     HasAdminUser = false;
                     // first we create Admin rool   
                     var role = new IdentityRole();
                     role.Name = "Admin";
-                    RoleManager.Create(role);
+                    FRoleManager.Create(role);
                 }
-                if (!RoleManager.RoleExists("User"))
+                if (!FRoleManager.RoleExists("User"))
                 {
-                    CreateRole(RoleManager,"User");
+                    CreateRole(FRoleManager,"User");
                 }
                 ctx.SaveChanges();
-            }
+            //}
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager ) : this()
@@ -53,7 +58,7 @@ namespace JXDevPlanner.WebMVC.Controllers
 
         public bool HasAdminUser { get; private set; } = true;
 
-        public RoleManager<IdentityRole> RoleManager
+        public RoleManager<IdentityRole> FRoleManager
         {
             get
             {
@@ -176,7 +181,26 @@ namespace JXDevPlanner.WebMVC.Controllers
         }
 
         public ActionResult ListUsers() {
-            var model = UserHelperService.GetAccountListItems();
+            var model = AccountService.GetAccountListItems();
+            foreach (var item in model)
+            {
+                var rolz = SRoleManager.Roles.ToArray();
+                var ctx = AbstractService.Context;
+                List<string> bar = new List<string>();
+                /**
+                 * TODO: [rarr] is a zero length array
+                 */
+                foreach (var role in rolz)
+                {
+                    var rarr = ctx.Users.Where(e => e.Id == item.UserID.ToString()).Single().Roles.ToArray();
+                    foreach (var rm in rarr)
+                    {
+                        var rid = rm.RoleId;
+                        bar.Add(ctx.Roles.Where(e => e.Id == rid).Single().Name);
+                    }
+                }
+                item.Roles = bar.ToArray();
+            }
             return View(model);
         }
 

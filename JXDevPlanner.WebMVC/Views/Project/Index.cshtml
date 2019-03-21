@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<JXDevPlanner.Models.ProjectListItem>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Your Projects";
 }
 
 <h2>Index</h2>
@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -19,21 +19,46 @@
         </th>
         <th></th>
     </tr>
+    *@
+    <style>
+        .project-list-item {
+            display: flex;
+        }
+        .project-list-item .side {
+            width: 20%;
+        }
+        .project-list-item .core {
+            width: 80%;
+        }
+    </style>
+    @foreach (var item in Model)
+    {
+        <a href="/Project/Details/@item.ProjectID">
+            <div class="project-list-item">
+                <div class="side">
+                </div>
+                <div class="core">
+                    <h3>@item.Title</h3>
+                    <p>@item.Desc</p>
+                </div>
+            </div>
+        </a>
+    }
+    @*@foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Desc)
+            </td>
+            <td>
+                @Html.ActionLink("Edit","Edit",new { id = item.ProjectID }) |
+                @Html.ActionLink("Details","Details",new { id = item.ProjectID }) |
+                @Html.ActionLink("Delete","Delete",new { id = item.ProjectID,conf = true })
+            </td>
+        </tr>
+    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Desc)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProjectID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID, conf = true })
-        </td>
-    </tr>
-}
-
-</table>
+</table>*@

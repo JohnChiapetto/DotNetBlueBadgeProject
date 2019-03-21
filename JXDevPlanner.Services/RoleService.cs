@@ -37,5 +37,12 @@ namespace JXDevPlanner.Services
             roleManager.Delete(GetRoles(e=>e.Id == model.RoleID.ToString())[0]);
             return context.TrySave();
         }
+        public IdentityRole GetRoleById(Guid id) => Context.Roles.Where(e => e.Id == id.ToString()).Single();
+        public void CreateRole(string name)
+        {
+            roleManager.Create(new IdentityRole { Name = name });
+            Context.SaveChanges();
+        }
+        public bool Exists(string name) => Context.Roles.Where(e => e.Name == name).ToArray().Length > 0;
     }
 }

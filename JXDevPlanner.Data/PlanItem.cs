@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace JXDevPlanner.Data
 {
+    public enum PlanCategory : int
+    {
+        Stable,Working,Indev,Promised,Planned,Proposed
+    }
+
     public class PlanItem
     {
 
@@ -22,6 +27,9 @@ namespace JXDevPlanner.Data
 
         [Required]
         public Guid ProjectID { get; set; }
+
+        [Required]
+        public int Category { get; set; }
 
         [Required]
         public Guid CreatorID { get; set; }

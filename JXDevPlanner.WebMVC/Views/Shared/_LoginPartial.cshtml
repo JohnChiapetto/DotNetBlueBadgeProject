@@ -9,7 +9,7 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @if (UserHelperService.IsAdmin(Guid.Parse(User.Identity.GetUserId())))
+            @if (AccountService.IsAdmin(Guid.Parse(User.Identity.GetUserId())))
             {
                 TempData["XSTR"] += "[A] ";
             }

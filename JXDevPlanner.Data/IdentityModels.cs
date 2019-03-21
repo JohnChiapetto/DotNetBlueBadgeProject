@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
@@ -50,6 +51,7 @@ namespace JXDevPlanner.Data
 
         public DbSet<Project> Projects { get; set; }
         public DbSet<PlanItem> PlanItems { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
 
         public bool TrySave() => SaveChanges() > 0;
 
@@ -76,9 +78,11 @@ namespace JXDevPlanner.Data
 
     public class IdentityUserRoleConfiguration : EntityTypeConfiguration<IdentityUserRole>
     {
+        public Guid NewGuid => Guid.NewGuid();
+
         public IdentityUserRoleConfiguration()
         {
-            HasKey(iur => iur.RoleId);
+            HasKey(iur => iur.NewGuid);
         }
     }
 }

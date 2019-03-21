@@ -84,10 +84,11 @@ namespace JXDevPlanner.WebMVC.Controllers
             return service;
         }
 
-        public ActionResult AddPlanItem(Guid projectID,string name,string detail) {
+        public ActionResult AddPlanItem(Guid projectID,string name,string detail,int category) {
             var pic = new PlanItemCreate(projectID);
             pic.Name = name;
             pic.Detail = detail;
+            pic.Category = category;
             return RedirectToAction("Create","PlanItem",new { model = pic });
         }
 

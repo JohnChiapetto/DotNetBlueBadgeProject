@@ -12,6 +12,7 @@ namespace JXDevPlanner.Models
         public string Name { get; set; }
         public string Detail { get; set; }
         public Guid ProjectID { get; set; }
+        public int Category { get; set; }
 
         public PlanItemCreate() { }
         public PlanItemCreate(Guid id) { this.ProjectID = id; }
