@@ -1,5 +1,6 @@
 ﻿using JXDevPlanner.Data;
 using JXDevPlanner.Models;
+using JXDevPlanner.Storage;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,18 @@ namespace JXDevPlanner.Services
 {
     public class AccountService : AbstractService
     {
-        ApplicationUserManager UserManager;
+        dynamic UserManager;
 
-        public AccountService(Guid uid) : base(uid) { }
+        public AccountService(Guid uid,dynamic userManager) : base(uid)
+        {
+            this.UserManager = userManager;
+        }
 
         public static bool IsAdmin(Guid userID) {
             using (var ctx = new ApplicationDbContext()) {
                 var q = ctx.Users.Where(e => e.Id == userID.ToString()).ToArray();
                 if (q.Length < 1) return false;
                 foreach (var role in ctx.Users.Where(e => e.Id == userID.ToString()).Single().Roles) {
-                    throw new Exception(role.ToString());
                     if (role.ToString() == "Admin") return true;
                 }
             }
@@ -37,7 +40,29 @@ namespace JXDevPlanner.Services
             }
         }
 
+        public IdentityUser GetUserById(string id) => GetUserById(Guid.Parse(id));
         public IdentityUser GetUserById(Guid id) => Context.Users.Where(e => e.Id == id.ToString()).Single();
+
+        public async void CreateAccountAsync(string userName,string email,string password)
+        {
+            Context.SaveChanges();
+            var user = new ApplicationUser
+            {
+                UserName = userName,
+                Email = email
+            };
+            //if (GStorage.Data["UserManager"] == null) throw new Exception("USERMANAGER GLOBAL IS NULL");
+            var result = await UserManager.Create(user,password);
+            Context.SaveChanges();
+            //success = Context.SaveChanges() != 0;
+        }
+        public void CreateAccount(string userName,string email,string password)
+        {
+            CreateAccountAsync(userName,email,password);
+        }
+
+        public IdentityRole[] GetRolesForUser(Guid id) => GetRolesForUser(GetUserById(id));
+        public IdentityRole[] GetRolesForUser(IdentityUser user) => new UserRoleService(_userId,UserManager).GetRoles(Guid.Parse(user.Id));
 
     }
 }

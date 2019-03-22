@@ -82,7 +82,7 @@ namespace JXDevPlanner.Data
 
         public IdentityUserRoleConfiguration()
         {
-            HasKey(iur => iur.NewGuid);
+            HasKey(iur => iur.UserId);
         }
     }
 }

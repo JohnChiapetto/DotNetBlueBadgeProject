@@ -14,7 +14,7 @@ namespace JXDevPlanner.Models
     {
         public Guid UserID { get; set; }
         public string UserName { get; set; }
-        public string[] Roles { get; set; }
+        public IdentityRole[] Roles { get; set; }
         public string RolesString {
             get {
                 if (Roles == null) return "";
@@ -22,7 +22,7 @@ namespace JXDevPlanner.Models
                 for (int i = 0; i < Roles.Length; i++)
                 {
                     if (str != "") str += " ";
-                    str += Roles[i];
+                    str += Roles[i].Name;
                 }
                 return str;
             }

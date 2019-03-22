@@ -288,6 +288,10 @@
       <Project>{905fccc5-0b50-41dc-abb5-e16b1f810ae6}</Project>
       <Name>JXDevPlanner.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JXDevPlanner.Storage\JXDevPlanner.Storage.csproj">
+      <Project>{640DF68D-8CE1-45E6-B411-9E9E01E209C5}</Project>
+      <Name>JXDevPlanner.Storage</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

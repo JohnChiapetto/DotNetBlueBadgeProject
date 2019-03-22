@@ -13,15 +13,14 @@ namespace JXDevPlanner.Data
         public Guid RoleID { get; set; }
         public Guid UserID { get; set; }
 
-        public UserRole(IdentityUser user,IdentityRole role)
+        public UserRole() { this.UserRoleID = Guid.NewGuid(); }
+        public UserRole(IdentityUser user,IdentityRole role) : base()
         {
-            this.UserRoleID = Guid.NewGuid();
             this.UserID = Guid.Parse(user.Id);
             this.RoleID = Guid.Parse(role.Id);
         }
-        public UserRole(ApplicationUser user,IdentityRole role)
+        public UserRole(ApplicationUser user,IdentityRole role) : base()
         {
-            this.UserRoleID = Guid.NewGuid();
             this.UserID = Guid.Parse(user.Id);
             this.RoleID = Guid.Parse(role.Id);
         }

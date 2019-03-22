@@ -14,6 +14,7 @@ using JXDevPlanner.Data;
 using Microsoft.AspNet.Identity.EntityFramework;
 using JXDevPlanner.Services;
 using System.Collections.Generic;
+using JXDevPlanner.Storage;
 
 namespace JXDevPlanner.WebMVC.Controllers
 {
@@ -28,31 +29,24 @@ namespace JXDevPlanner.WebMVC.Controllers
 
         public AccountController()
         {
-            var svc = new AccountService(Guid.NewGuid());
+            var asvc = new AccountService(Guid.NewGuid(),_userManager);
+            var rsvc = new RoleService(Guid.NewGuid());
             var ctx = AbstractService.Context;
-            //{
-                if (SRoleManager == null)
-                    SRoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(ctx));
-                
-                if (!FRoleManager.RoleExists("Admin"))
-                {
-                    HasAdminUser = false;
-                    // first we create Admin rool   
-                    var role = new IdentityRole();
-                    role.Name = "Admin";
-                    FRoleManager.Create(role);
-                }
-                if (!FRoleManager.RoleExists("User"))
-                {
-                    CreateRole(FRoleManager,"User");
-                }
-                ctx.SaveChanges();
-            //}
+
+            if (SRoleManager == null)
+                SRoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(ctx));
+            /*if (!rsvc.Exists("Admin"))
+            {
+                HasAdminUser = false;
+                rsvc.CreateRole("Admin");
+            }*/
+            if (!rsvc.Exists("User")) rsvc.CreateRole("User");
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager ) : this()
         {
             UserManager = userManager;
+            GStorage.Data["UserManager"] = UserManager;
             SignInManager = signInManager;
         }
 
@@ -186,19 +180,17 @@ namespace JXDevPlanner.WebMVC.Controllers
             {
                 var rolz = SRoleManager.Roles.ToArray();
                 var ctx = AbstractService.Context;
-                List<string> bar = new List<string>();
+                List<IdentityRole> bar = new List<IdentityRole>();
                 /**
                  * TODO: [rarr] is a zero length array
                  */
-                foreach (var role in rolz)
+                var rarr = new UserRoleService(Guid.Parse(User.Identity.GetUserId()),UserManager).GetRoles(item.UserID);
+                foreach (var rm in rarr)
                 {
-                    var rarr = ctx.Users.Where(e => e.Id == item.UserID.ToString()).Single().Roles.ToArray();
-                    foreach (var rm in rarr)
-                    {
-                        var rid = rm.RoleId;
-                        bar.Add(ctx.Roles.Where(e => e.Id == rid).Single().Name);
-                    }
+                    var rid = rm.Id;
+                    bar.Add(ctx.Roles.Where(e => e.Id == rid).Single());
                 }
+                
                 item.Roles = bar.ToArray();
             }
             return View(model);

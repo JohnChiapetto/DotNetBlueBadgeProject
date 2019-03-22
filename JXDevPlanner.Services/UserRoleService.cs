@@ -10,7 +10,8 @@ namespace JXDevPlanner.Services
 {
     public class UserRoleService : AbstractService
     {
-        public UserRoleService(Guid uid) : base(uid) { }
+        public UserRoleService(Guid uid,dynamic um) : base(uid) { UserManager = um; }
+        public dynamic UserManager;
 
         public UserRole GetById(Guid id)
         {
@@ -35,7 +36,7 @@ namespace JXDevPlanner.Services
         }
         public void AssignRole(Guid user,IdentityRole role)
         {
-            Context.UserRoles.Add(new UserRole(new AccountService(_userId).GetUserById(user),role));
+            Context.UserRoles.Add(new UserRole(new AccountService(_userId,UserManager).GetUserById(user),role));
             Context.TrySave();
         }
     }
