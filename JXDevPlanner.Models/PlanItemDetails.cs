@@ -31,15 +31,15 @@ namespace JXDevPlanner.Models
         public DateTimeOffset? ModifiedUTC { get; set; } = null;
 
         public PlanItemDetails(PlanItem item) {
-            this.PlanItemID = item.PlanItemID;
-            this.Name = item.Name;
-            this.Details = item.Details;
-            this.Category = $"{item.CategoryString}";
-            this.ProjectID = Guid.Parse(item.ProjectID.ToString());
-            this.CreatorID = item.CreatorID;
+            this.PlanItemID     = item.PlanItemID;
+            this.Name           = item.Name;
+            this.Details        = item.Details;
+            this.Category       = $"{item.CategoryString}";
+            this.ProjectID      = Guid.Parse(item.ProjectID.ToString());
+            this.CreatorID      = item.CreatorID;
             this.LastModifiedBy = item.LastModifiedBy;
-            this.CreatedUTC = item.CreatedUTC;
-            this.ModifiedUTC = item.ModifiedUTC;
+            this.CreatedUTC     = item.CreatedUTC;
+            this.ModifiedUTC    = item.ModifiedUTC;
         }
     }
 }
