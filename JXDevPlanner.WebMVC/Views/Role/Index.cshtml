@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@Html.ActionLink("Create New","CreateRole")
+
+<table class="table">
+    <tr>
+        <th>RoleID</th>
+        <th>Name</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        @Html.Partial("RoleListItemView",item);
+    }
+</table>

@@ -17,6 +17,11 @@
             <td>@item.UserID</td>
             <td>@item.UserName</td>
             <td>@item.RolesString</td>
+            <td>
+                <a href="/Role/AddRoleToUser?userID=@item.UserID">Add Role</a> | 
+                <a href="/Role/RemoveRoleFromUser?userID=@item.UserID">Remove Role</a> | 
+                <a href="/Role/CreateAndAssign?userID=@item.UserID">Create Role</a>
+            </td>
         </tr>
     }
 </table>

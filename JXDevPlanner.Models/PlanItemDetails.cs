@@ -14,6 +14,7 @@ namespace JXDevPlanner.Models
         public Guid PlanItemID { get; set; }
         public string Name { get; set; }
         public string Details { get; set; }
+        public string Category { get; set; }
         public Guid ProjectID { get; set; }
         public Guid CreatorID { get; set; }
 
@@ -33,6 +34,7 @@ namespace JXDevPlanner.Models
             this.PlanItemID = item.PlanItemID;
             this.Name = item.Name;
             this.Details = item.Details;
+            this.Category = $"{item.CategoryString}";
             this.ProjectID = Guid.Parse(item.ProjectID.ToString());
             this.CreatorID = item.CreatorID;
             this.LastModifiedBy = item.LastModifiedBy;

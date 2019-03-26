@@ -21,7 +21,7 @@ namespace JXDevPlanner.Models
                 var str = "";
                 for (int i = 0; i < Roles.Length; i++)
                 {
-                    if (str != "") str += " ";
+                    if (str != "") str += ",";
                     str += Roles[i].Name;
                 }
                 return str;

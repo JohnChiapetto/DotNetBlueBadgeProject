@@ -1,0 +1,10 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+
+<tr>
+    <td>@Html.DisplayFor(e=>e.Id)</td>
+    <td>@Html.DisplayFor(e=>e.Name)</td>
+    <td>
+        @Html.ActionLink("Edit","Edit",new { id = System.Guid.Parse(Model.Id), returnUrl = "/Role/Index" }) | 
+        @Html.ActionLink("Delete","DeleteConfirm",new { id = System.Guid.Parse(Model.Id) })
+    </td>
+</tr>

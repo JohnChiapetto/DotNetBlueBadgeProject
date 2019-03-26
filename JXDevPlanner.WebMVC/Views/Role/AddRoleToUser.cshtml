@@ -1,0 +1,20 @@
+﻿@model JXDevPlanner.Models.AddRoleToUserModel
+@{
+    ViewBag.Title = $"Add Role to \"{Model.UserName}\"";
+}
+
+<h2>AddRoleToUser</h2>
+
+<select id="sel" class="form-control">
+    @foreach (var role in new JXDevPlanner.Services.UserRoleService(Guid.Parse(JXDevPlanner.WebMVC.Controllers.UserHelper.GetUserId()),JXDevPlanner.Storage.GStorage.Data["UserManager"]).GetRolesUserIsNotIn(Model.UserID))
+    {
+        <option value="@role.Id">@role.Name</option>
+    }
+</select>
+<button onclick="window.location.href = '/Account/ListUsers';" class="btn">Cancel</button>
+<button id="bConfirm" class="btn btn-default">Confirm</button>
+<script>
+    bConfirm.onclick = function(e) {
+        window.location.href = '/Role/AddRoleToUserFunc?userID=@Model.UserID&roleID='+sel.value;
+    }
+</script>

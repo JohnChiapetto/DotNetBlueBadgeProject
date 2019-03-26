@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,8 @@ namespace JXDevPlanner.Data
 {
     public class UserRole
     {
-        public Guid UserRoleID { get; set; }
+        [Key]
+        public Guid UserRoleID { get; set; } = Guid.NewGuid();
         public Guid RoleID { get; set; }
         public Guid UserID { get; set; }
 

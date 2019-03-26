@@ -1,0 +1,24 @@
+﻿@model JXDevPlanner.Models.RemoveRoleFromUserModel
+
+@{
+    ViewBag.Title = "RemoveRoleFromUser";
+}
+
+<h2>RemoveRoleFromUser</h2>
+
+<select id="input" class="form-control">
+    @foreach (var role in new JXDevPlanner.Services.UserRoleService(Guid.Parse(JXDevPlanner.WebMVC.Controllers.UserHelper.GetUserId()),JXDevPlanner.Storage.GStorage.Data["UserManager"]).GetRoles(Model.UserId))
+    {
+        <option value="@role.Id">@role.Name</option>
+    }
+</select>
+
+<button id="sumbitBtn" class="btn btn-default">Confirm</button>
+<script>
+    sumbitBtn.onclick = function (e) {
+        var userID = "@Model.UserId";
+        var roleID = input.value;
+        //alert("USERID: " + userID + "\nROLEID: " + roleID);
+        window.location.href = "/Role/RemoveRoleFromUserFunc?userID=" + userID + "&roleID=" + roleID;
+    }
+</script>

@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using JXDevPlanner.WebMVC.Models;
+using JXDevPlanner.Services;
 
 namespace JXDevPlanner.WebMVC.Controllers
 {
@@ -74,6 +75,8 @@ namespace JXDevPlanner.WebMVC.Controllers
             };
             return View(model);
         }
+
+        //public ActionResult ChangeUsername()
 
         //
         // POST: /Manage/RemoveLogin
@@ -211,6 +214,28 @@ namespace JXDevPlanner.WebMVC.Controllers
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+        }
+
+        public ActionResult ChangeUsername()
+        {
+            var model = new ChangeUserNameViewModel { UserID = Guid.Parse(User.Identity.GetUserId()) };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeUsernameFunc(ChangeUserNameViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var asvc = new AccountService(new Guid(),UserManager);
+            if (asvc.ChangeUsername(model.UserID,model.NewUsername))
+            {
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
         //

@@ -92,6 +92,17 @@ namespace JXDevPlanner.WebMVC.Controllers
             return View();
         }
 
+        
+        [AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> JLogin(string email,string pass)
+        {
+            var model = new LoginViewModel { Email = email,Password = pass,RememberMe = false };
+            var result = await SignInManager.PasswordSignInAsync(model.Email,model.Password,model.RememberMe,shouldLockout: false);
+            // await Login(new LoginViewModel { Email = email,Password = pass,RememberMe = false },"/Account/ListUsers");
+            return RedirectToAction("ListUsers");
+        }
+
         //
         // POST: /Account/Login
         [HttpPost]
@@ -99,14 +110,11 @@ namespace JXDevPlanner.WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            if (!ModelState.IsValid) return View(model);
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -173,7 +181,7 @@ namespace JXDevPlanner.WebMVC.Controllers
                     return View(model);
             }
         }
-
+        
         public ActionResult ListUsers() {
             var model = AccountService.GetAccountListItems();
             foreach (var item in model)
@@ -181,16 +189,18 @@ namespace JXDevPlanner.WebMVC.Controllers
                 var rolz = SRoleManager.Roles.ToArray();
                 var ctx = AbstractService.Context;
                 List<IdentityRole> bar = new List<IdentityRole>();
-                /**
-                 * TODO: [rarr] is a zero length array
-                 */
-                var rarr = new UserRoleService(Guid.Parse(User.Identity.GetUserId()),UserManager).GetRoles(item.UserID);
-                foreach (var rm in rarr)
+                //var userIDStr = User.Identity.GetUserId();
+                var userID = new Guid();
+                var rarr = new UserRoleService(userID,UserManager).GetRoles(item.UserID);
+                if (rarr != null)
                 {
-                    var rid = rm.Id;
-                    bar.Add(ctx.Roles.Where(e => e.Id == rid).Single());
+                    foreach (var rm in rarr)
+                    {
+                        if (rm == null) continue;
+                        var rid = rm.Id;
+                        bar.Add(ctx.Roles.Where(e => e.Id == rid).Single());
+                    }
                 }
-                
                 item.Roles = bar.ToArray();
             }
             return View(model);

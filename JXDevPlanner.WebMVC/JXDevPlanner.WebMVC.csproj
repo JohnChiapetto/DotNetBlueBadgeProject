@@ -185,6 +185,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ChangeUserNameViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -265,10 +266,18 @@
     <Content Include="Views\PlanItem\EditById.cshtml" />
     <Content Include="Views\Account\ListUsers.cshtml" />
     <Content Include="Views\PlanItem\Details.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\RoleListItemView.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\Role\CreateRole.cshtml" />
+    <Content Include="Views\Role\DeleteConfirm.cshtml" />
+    <Content Include="Views\Role\AddRoleToUser.cshtml" />
+    <Content Include="Views\Role\RemoveRoleFromUser.cshtml" />
+    <Content Include="Views\Role\CreateAndAssign.cshtml" />
+    <Content Include="Views\Manage\ChangeUsername.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Role\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

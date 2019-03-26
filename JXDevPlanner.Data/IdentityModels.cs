@@ -53,7 +53,7 @@ namespace JXDevPlanner.Data
         public DbSet<PlanItem> PlanItems { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
 
-        public bool TrySave() => SaveChanges() > 0;
+        public bool TrySave() => SaveChanges() != 0;
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

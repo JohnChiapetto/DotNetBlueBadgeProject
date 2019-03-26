@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,11 @@ namespace JXDevPlanner.Models
     {
         public Guid RoleID { get; set; }
         public string RoleName { get; set; }
+
+        public RoleDelete(IdentityRole role)
+        {
+            this.RoleID = Guid.Parse(role.Id);
+            this.RoleName = role.Name;
+        }
     }
 }

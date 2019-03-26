@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountListItem.cs" />
+    <Compile Include="AddRoleToUserModel.cs" />
     <Compile Include="PlanItemCreate.cs" />
     <Compile Include="PlanItemDelete.cs" />
     <Compile Include="PlanItemDetails.cs" />
@@ -67,8 +68,13 @@
     <Compile Include="ProjectEdit.cs" />
     <Compile Include="ProjectListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoveRoleFromUserModel.cs" />
     <Compile Include="RoleCreate.cs" />
+    <Compile Include="RoleCreateAndAssignModel.cs" />
     <Compile Include="RoleDelete.cs" />
+    <Compile Include="RoleDetails.cs" />
+    <Compile Include="RoleEdit.cs" />
+    <Compile Include="UserRoleListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

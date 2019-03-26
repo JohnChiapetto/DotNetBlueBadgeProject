@@ -25,10 +25,13 @@
             display: flex;
         }
         .project-list-item .side {
-            width: 20%;
+            width: 15%;
         }
         .project-list-item .core {
-            width: 80%;
+            width: 85%;
+        }
+        .project-list-item .core h3 {
+            margin-top: 0px;
         }
     </style>
     @foreach (var item in Model)
@@ -36,10 +39,11 @@
         <a href="/Project/Details/@item.ProjectID">
             <div class="project-list-item">
                 <div class="side">
+                    CREATED: @item.CreatedUtc.ToString("MM/dd/yyyy @ hh:mmtt");
                 </div>
                 <div class="core">
                     <h3>@item.Title</h3>
-                    <p>@item.Desc</p>
+                    <p>@Html.Raw(item.Desc.Replace("\n","<br>"))</p>
                 </div>
             </div>
         </a>
