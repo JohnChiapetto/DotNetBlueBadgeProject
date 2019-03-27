@@ -1,5 +1,7 @@
 ﻿@model JXDevPlanner.Models.ProjectDetail
 
+@using TTl = JXDevPlanner.Storage.TimeTool;
+
 @{
     ViewBag.Title = Model.Title;
 }
@@ -39,7 +41,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CreatedUTC)
+            @TTl.Date(Model.CreatedUTC)
+            
         </dd>
 
         <dt>
@@ -47,7 +50,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ModifiedUTC)
+            @TTl.Date(Model.ModifiedUTC)
+            
         </dd>
 
     </dl>
