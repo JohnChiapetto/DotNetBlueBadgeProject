@@ -34,8 +34,8 @@
 
         <div class="form-actions no-color">
             @*<input type="submit" value="Delete" class="btn btn-default" /> |*@
-            @Html.ActionLink("Delete","ConfirmedDelete",new { @id = Model.PlanItemId,confirmed = true },new { @class = "btn btn-default" })
-            &nbsp;|@Html.ActionLink("Back to List","Details","Project",new { projectId = Model.ProjectId },new { })
+            @Html.ActionLink("Delete","ConfirmedDelete",new { id = Model.PlanItemId,confirmed = true },new { @class = "btn btn-default" })
+            &nbsp;|@Html.ActionLink("Back to List","Details","Project",new { id = Model.ProjectId },new { })
         </div>
     }
 </div>

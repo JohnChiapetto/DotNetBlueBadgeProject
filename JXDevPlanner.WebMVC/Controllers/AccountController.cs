@@ -206,6 +206,40 @@ namespace JXDevPlanner.WebMVC.Controllers
             return View(model);
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreateAccountViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser {
+                    UserName = model.Username,
+                    Email = model.Email
+                };
+                bool b = true;
+                try
+                {
+                    UserManager.Create(user,model.Password);
+                }
+                catch (Exception e)
+                {
+                    b = false;
+                    Console.WriteLine(e);
+                }
+                if (b)
+                {
+                    AssignRoleTo(UserManager,Guid.Parse(user.Id),"User");
+                    return RedirectToAction("ListUsers");
+                }
+            }
+            return View(model);
+        }
+
         //
         // GET: /Account/Register
         [AllowAnonymous]

@@ -46,7 +46,7 @@ namespace JXDevPlanner.WebMVC.Controllers
             var svc = CreatePromotionService();
             model.ProjectId = svc.GetProjectFor(model.PromotionId).ProjectID;
             model.ProjectName = svc.GetProjectFor(model.PromotionId).Title;
-            model.PlanItemName = svc.GetPlanItemFor(model.PlanId).Name;
+            model.PlanItemName = svc.GetPlanItemFor(model.PromotionId).Name;
             model.OldRankName = PlanItem.CategoryStr(model.OldCategory);
             model.NewRankName = PlanItem.CategoryStr(model.NewCategory);
             return View(model);

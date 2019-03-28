@@ -35,13 +35,13 @@ namespace JXDevPlanner.Services
         {
             var entity = new PlanItemPromotion
             {
-                PromotionId = Guid.NewGuid(),
-                PlanId = model.PlanId,
-                Summary = model.Summary,
-                Details = model.Detail,
+                PromotionId     = Guid.NewGuid(),
+                PlanId          = model.PlanId,
+                Summary         = model.Summary,
+                Details         = model.Detail,
                 DateImplemented = DateTimeOffset.Now,
-                OldCategory = model.FromCategory,
-                NewCategory = model.ToCategory
+                OldCategory     = model.FromCategory,
+                NewCategory     = model.ToCategory
             };
 
             Context.Promotions.Add(entity);

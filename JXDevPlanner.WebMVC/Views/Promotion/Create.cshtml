@@ -79,7 +79,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Details","Project",new { id = new JXDevPlanner.Services.PromotionService().GetProjectFor(Model.PlanId).ProjectID },new { })
 </div>
 
 @section Scripts {

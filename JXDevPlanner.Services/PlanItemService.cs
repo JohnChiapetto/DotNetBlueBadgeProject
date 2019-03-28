@@ -70,6 +70,7 @@ namespace JXDevPlanner.Services
             //{
                 Context.PlanItems.Remove(val);
             //}
+            Context.Promotions.RemoveRange(Context.Promotions.Where(e => e.PlanId == id));
             Context.TrySave();
             return pid;
         }

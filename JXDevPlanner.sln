@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JXDevPlanner.Console", "JXD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JXDevPlanner.Storage", "JXDevPlanner.Storage\JXDevPlanner.Storage.csproj", "{640DF68D-8CE1-45E6-B411-9E9E01E209C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JXDevPlanner.Tests", "JXDevPlanner.Tests\JXDevPlanner.Tests.csproj", "{8E3BFA14-FAC2-4E57-B4B0-BE08C879F075}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{640DF68D-8CE1-45E6-B411-9E9E01E209C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{640DF68D-8CE1-45E6-B411-9E9E01E209C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{640DF68D-8CE1-45E6-B411-9E9E01E209C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E3BFA14-FAC2-4E57-B4B0-BE08C879F075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E3BFA14-FAC2-4E57-B4B0-BE08C879F075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E3BFA14-FAC2-4E57-B4B0-BE08C879F075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E3BFA14-FAC2-4E57-B4B0-BE08C879F075}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

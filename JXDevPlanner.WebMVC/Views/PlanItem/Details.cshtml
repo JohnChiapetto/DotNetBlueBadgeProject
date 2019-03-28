@@ -78,8 +78,7 @@
 </div>
 <p>
     @Html.ActionLink("Edit","EditById","PlanItem",new { id = Model.PlanItemID },new { }) |
-    @Html.ActionLink("Back to List","Details","Project",new { id = Model.ProjectID },new { })
-    @if (JXDevPlanner.Services.AccountService.IsAdmin(User) || true) {
-        @Html.ActionLink("View Promotions","Index","Promotion",new { planId = Model.PlanItemID },new { })
-    }
+    @Html.ActionLink("Back to List","Details","Project",new { id = Model.ProjectID },new { }) | 
+    @Html.ActionLink("View Promotions","Index","Promotion",new { planId = Model.PlanItemID },new { })
 </p>
+
