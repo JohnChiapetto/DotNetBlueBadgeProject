@@ -1,0 +1,119 @@
+﻿@model JXDevPlanner.Models.PromotionDetails
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PromotionDetails</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        @if (JXDevPlanner.Services.AccountService.IsAdmin(Guid.Parse(JXDevPlanner.Services.UserHelper.GetUserId())))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.PromotionId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PromotionId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PlanId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PlanId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProjectId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProjectId)
+            </dd>
+        }
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.OldCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OldCategory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NewCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewCategory)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateImplemented)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.DateImplemented)*@
+            @JXDevPlanner.Storage.TimeTool.DateTime(Model.DateImplemented)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Summary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Summary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OldRankName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OldRankName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NewRankName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewRankName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlanItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlanItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PojectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PojectName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

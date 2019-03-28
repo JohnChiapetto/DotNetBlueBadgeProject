@@ -16,15 +16,15 @@ namespace JXDevPlanner.Services
     public class RoleService : AbstractService
     {
         //Guid _userId;
-        ApplicationDbContext context = new ApplicationDbContext();
+        //ApplicationDbContext context = new ApplicationDbContext();
         RoleManager<IdentityRole> roleManager;
 
-        public RoleService(Guid userId) : base(userId) { this.roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context)); }
+        public RoleService(Guid userId) : base(userId) { this.roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(Context)); }
 
         public IdentityRole[] GetRoles() { return GetRoles(e => true); }
         public IdentityRole[] GetRoles(Expression<Func<IdentityRole,bool>> query)
         {
-            return context.Roles.Where(query).ToArray();
+            return Context.Roles.Where(query).ToArray();
         }
         public IdentityRole GetRoleByName(string name) => Context.Roles.Where(e => e.Name == name).ToArray()[0];
 
@@ -40,14 +40,14 @@ namespace JXDevPlanner.Services
             IdentityResult result = roleManager.Create(identr);
             // Just in case...
             model.RoleID = Guid.Parse(identr.Id);
-            context.SaveChanges();
+            Context.SaveChanges();
             return result.Succeeded;
         }
         public void DeleteRole(RoleDelete model) {
             var role = GetRoleById(model.RoleID);
             new UserRoleService(new Guid(),JXDevPlanner.Storage.GStorage.Data["UserManager"]).RemoveAllFromRole(Guid.Parse(role.Id));
             Context.Roles.Remove(role);
-            context.TrySave();
+            Context.TrySave();
         }
         public IdentityRole GetRoleById(Guid id)
         {

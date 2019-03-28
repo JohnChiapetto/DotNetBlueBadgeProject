@@ -67,7 +67,6 @@ namespace JXDevPlanner.WebMVC.Controllers
         public ActionResult Edit(PlanItemEdit model) {
             var svc = CreateService();
 
-
             if (svc.EditPlanItem(model))
             {
                 TempData["SaveResult"] = "Your changes have been saved.";

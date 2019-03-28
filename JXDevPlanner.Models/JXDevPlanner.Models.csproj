@@ -67,6 +67,11 @@
     <Compile Include="ProjectDetail.cs" />
     <Compile Include="ProjectEdit.cs" />
     <Compile Include="ProjectListItem.cs" />
+    <Compile Include="PromotionCreate.cs" />
+    <Compile Include="PromotionDelete.cs" />
+    <Compile Include="PromotionDetails.cs" />
+    <Compile Include="PromotionEdit.cs" />
+    <Compile Include="PromotionListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoveRoleFromUserModel.cs" />
     <Compile Include="RoleCreate.cs" />

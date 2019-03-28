@@ -43,7 +43,9 @@ namespace JXDevPlanner.Data
         public DateTimeOffset? ModifiedUTC { get; set; } = null;
 
         //[Ignored]
-        public string CategoryString => Enum.GetName(typeof(PlanCategory),this.Category);
+        public string CategoryString => CategoryStr(this.Category);
+
+        public static string CategoryStr(int n) => Enum.GetName(typeof(PlanCategory),n);
 
     }
 }

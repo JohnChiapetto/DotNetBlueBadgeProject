@@ -1,0 +1,43 @@
+﻿@model IEnumerable<JXDevPlanner.Models.PromotionListItem>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        @*<th>Project</th>
+        <th>PlanItem</th>*@
+        <th>Summary</th>
+        <th>From</th>
+        <th>To</th>
+        <th>On</th>
+    </tr>
+    <tr>
+        <td>CREATED</td>
+        <td></td>
+        <td></td>
+        <td>@Model.First().PlanItemCreated</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*
+            <td>
+                @Html.ActionLink(item.ProjectName,"Details","Project",new { id = item.ProjectId },new { })
+            </td>
+            <td>
+                @Html.ActionLink(item.PlanItemName,"Details","PlanItem",new { id = item.PlanId },new { })
+            </td>
+            *@
+            <td>
+                @*@item.Summary*@
+                @Html.ActionLink(item.Summary,"Details","Promotion",new { id = item.PromotionId },new { })
+            </td>
+            <td>@item.OldRankName</td>
+            <td>@item.NewRankName</td>
+            <td>@JXDevPlanner.Storage.TimeTool.DateTime(item.DateImplemented)</td>
+        </tr>
+    }
+</table>

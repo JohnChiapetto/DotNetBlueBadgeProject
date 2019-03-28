@@ -44,6 +44,7 @@ namespace JXDevPlanner.Services
                 CreatedUTC = DateTimeOffset.Now,
                 ModifiedUTC = null
             };
+            GetProjectFor(model.ProjectID).ModifiedUTC = DateTimeOffset.Now;
             Context.PlanItems.Add(entity);
             return Context.TrySave();
         }
@@ -55,12 +56,15 @@ namespace JXDevPlanner.Services
             entity.Details     = model.Detail;
             entity.ModifiedUTC = DateTimeOffset.Now;
             entity.LastModifiedBy = _userId;
+            GetProjectFor(entity.PlanItemID).ModifiedUTC = DateTimeOffset.Now;
             return Context.TrySave();
         }
 
         public Guid DeletePlanItem(Guid id) {
             PlanItem val = GetPlanItemById(id);
-            var pid = GetProjectIdFor(id);
+            var project = GetProjectFor(val.ProjectID);
+            project.ModifiedUTC = DateTimeOffset.Now;
+            var pid = project.ProjectID;
             //Context.PlanItems.Attach(val);
             //if (Context.PlanItems.AsNoTracking().Contains(val))
             //{

@@ -5,12 +5,31 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 //using JXDevPlanner.WebMVC;
 
 namespace JXDevPlanner.Services
 {
+    public class UserHelper
+    {
+        public static string GetUserId()
+        {
+            var identity = (System.Security.Claims.ClaimsPrincipal)System.Threading.Thread.CurrentPrincipal;
+            var principal = System.Threading.Thread.CurrentPrincipal as System.Security.Claims.ClaimsPrincipal;
+            var userId = identity.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
+            return userId;
+        }
+        public static string GetUserId(IPrincipal p)
+        {
+            var identity = (System.Security.Claims.ClaimsPrincipal)p;
+            var principal = p as System.Security.Claims.ClaimsPrincipal;
+            var userId = identity.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
+            return userId;
+        }
+    }
+
     public class AccountService : AbstractService
     {
         dynamic UserManager;
@@ -20,6 +39,10 @@ namespace JXDevPlanner.Services
             this.UserManager = userManager;
         }
 
+        public static bool IsAdmin(System.Security.Principal.IPrincipal principal)
+        {
+            return IsAdmin(Guid.Parse(UserHelper.GetUserId(principal)));
+        }
         public static bool IsAdmin(Guid userID) {
             using (var ctx = new ApplicationDbContext()) {
                 var q = ctx.Users.Where(e => e.Id == userID.ToString()).ToArray();

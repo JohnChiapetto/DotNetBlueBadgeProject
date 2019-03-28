@@ -76,19 +76,20 @@
     <table class="table">
         <tr>
             <th>Name</th>
-            <th>Created By</th>
+            <th>Category</th>
         </tr>
         @foreach (var item in new JXDevPlanner.Data.ApplicationDbContext().PlanItems.Where(e=>e.ProjectID==Model.ProjectID).ToArray())
         {
         <tr>
             <td>@item.Name</td>
             <td>
-                @(new JXDevPlanner.Data.ApplicationDbContext().Users.Where(e=>e == null?false:e.Id == item.CreatorID.ToString()).Single().UserName)
+                @item.CategoryString
             </td>
             <td>
                 @Html.ActionLink("Edit","EditById","PlanItem",new { id = item.PlanItemID },new { }) | 
                 @Html.ActionLink("Delete","Delete","PlanItem",new { id = item.PlanItemID },new { }) | 
-                @Html.ActionLink("Details","Details","PlanItem",new { id = item.PlanItemID },new { })
+                @Html.ActionLink("Details","Details","PlanItem",new { id = item.PlanItemID },new { }) | 
+                @Html.ActionLink("Promote","Create","Promotion",new { planItemId = item.PlanItemID },new { })
             </td>
         </tr>
         }

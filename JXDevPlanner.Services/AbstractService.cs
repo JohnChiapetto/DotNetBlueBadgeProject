@@ -14,6 +14,7 @@ namespace JXDevPlanner.Services
 
         protected Guid _userId;
 
+        public AbstractService() : this(new Guid()) { }
         public AbstractService(Guid userId) {
             if (Context == null)
                 Context = new ApplicationDbContext();

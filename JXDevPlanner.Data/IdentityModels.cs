@@ -52,6 +52,7 @@ namespace JXDevPlanner.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<PlanItem> PlanItems { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<PlanItemPromotion> Promotions { get; set; }
 
         public bool TrySave() => SaveChanges() != 0;
 
