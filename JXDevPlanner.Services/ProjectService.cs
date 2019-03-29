@@ -14,7 +14,14 @@ namespace JXDevPlanner.Services
 
         public Project GetProject(Guid id)
         {
-            return Context.Projects.Where(e => e.ProjectID == id).Single();
+            try
+            {
+                return Context.Projects.Where(e => e.ProjectID == id).ToArray()[0];
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                return null;
+            }
         }
 
         public bool EditProject(ProjectEdit model)
@@ -58,8 +65,7 @@ namespace JXDevPlanner.Services
         {
             var entity =
                 Context
-                    .Projects
-                    .Single(e => e.ProjectID == id && e.Creator == _userId);
+                    .Projects.Where(e => e.ProjectID == id && e.Creator == _userId).Single();
             ProjectDetail pd = new ProjectDetail(entity);
             pd.CreatorName = Context.Users.Where(e => e.Id == pd.Creator.ToString()).Single().UserName;
             PlanItem[] items = Context.PlanItems.Where(e => true).ToArray();

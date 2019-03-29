@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JXDevPlanner.Models.PromotionListItem>
+﻿@model JXDevPlanner.Models.PromotionListModel
 @{
     ViewBag.Title = "Index";
 }
@@ -18,7 +18,7 @@
         <td>CREATED</td>
         <td></td>
         <td></td>
-        <td>@Model.First().PlanItemCreated</td>
+        <td>@Model.DateCreated</td>
     </tr>
     @foreach (var item in Model)
     {
@@ -42,4 +42,4 @@
     }
 </table>
 
-@Html.ActionLink("Back","Details","PlanItem",new { id = Model.First().PlanId },new { })
+@Html.ActionLink("Back","Details","PlanItem",new { id = Model.PlanId },new { })

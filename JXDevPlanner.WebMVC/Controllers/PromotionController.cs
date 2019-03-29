@@ -16,13 +16,13 @@ namespace JXDevPlanner.WebMVC.Controllers
         // GET: Promotion
         public ActionResult Index(Guid planId)
         {
-            var model = CreatePromotionService().GetPromotionListItems(planId).ToList().Sorted(new PromotionListItem.DateComparer());
-            return View(model);
+            var model = CreatePromotionService().GetPromotionListItems(planId).ToList().Sorted(new PromotionListItem.DateComparer()).ToArray();
+            return View(new PromotionListModel(new PlanItemService(Guid.Parse(UserHelper.GetUserId())).GetPlanItemById(planId),model));
         }
 
         public ActionResult Create(Guid planItemId)
         {
-            var model = new PromotionCreate(planItemId);
+            var model = new PromotionCreate(new PlanItemService(Guid.Parse(UserHelper.GetUserId())).GetPlanItemById(planItemId));
             return View(model);
         }
 

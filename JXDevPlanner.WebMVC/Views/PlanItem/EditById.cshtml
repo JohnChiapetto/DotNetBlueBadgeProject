@@ -6,8 +6,14 @@
 
 <h2>EditById</h2>
 
+<noscript>
+    <div class="jumbotron">
+        <h1>HEY! YOU NEED JAVASCRIPT ENABLED DOOFUS!</h1>
+    </div>
+</noscript>
 
-@using (Html.BeginForm("Edit","PlanItem"))
+
+@using (Html.BeginForm("Edit","PlanItem","POST"))
 {
     @Html.AntiForgeryToken()
     
@@ -43,11 +49,21 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             @*@Html.ActionLink("Confirm","Edit",new { model = Model })*@
-            <input type="submit" value="Save" class="btn btn-default" />
+            <a id="bSave" href="javascript:submit();" class="btn btn-default">Save</a>
+            @*<input type="submit" value="Save" class="btn btn-default" />*@
         </div>
     </div>
 </div>
 }
+
+<script>
+    function submit() {
+        var id = "@Model.PlanID";
+        var name = Name.value;
+        var desc = Detail.value;
+        window.location.href = '/PlanItem/SaveEdits?id=' + id + '&name=' + name + '&desc=' + desc;
+    }
+</script>
 
 <div>
     @Html.ActionLink("Back to List", "Details","Project",new { id = Model.ProjectID },new { })

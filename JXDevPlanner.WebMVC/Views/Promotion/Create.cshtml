@@ -52,15 +52,12 @@
             @Html.LabelFor(model=>model.ToCategory,new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <select class="form-control" id="ToCategory" name="ToCategory">
-                    @if (new JXDevPlanner.Data.ApplicationDbContext().PlanItems.Where(e => e.PlanItemID == Model.PlanId).Single().Category != 0)
-                    {
-                        <option value="5">Proposed</option>
-                        <option value="4">Promised</option>
-                        <option value="3">Planned</option>
-                        <option value="2">Indev</option>
-                        <option value="1">Working</option>
-                        <option value="0">Stable</option>
-                    }
+                    <option value="5">Proposed</option>
+                    <option value="4">Planned</option>
+                    <option value="3">Promised</option>
+                    <option value="2">Indev</option>
+                    <option value="1">Working</option>
+                    <option value="0">Stable</option>
                 </select>
             </div>
             @*@Html.(model => model.ToCategory, htmlAttributes: new { @class = "control-label col-md-2" })*@
@@ -79,7 +76,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Details","Project",new { id = new JXDevPlanner.Services.PromotionService().GetProjectFor(Model.PlanId).ProjectID },new { })
+    @Html.ActionLink("Back to List", "Details","Project",new { id = new JXDevPlanner.Services.PlanItemService(new Guid()).GetProjectFor(Model.PlanId).ProjectID },new { })
 </div>
 
 @section Scripts {

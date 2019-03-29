@@ -16,7 +16,7 @@ namespace JXDevPlanner.Data
     public class PlanItem
     {
 
-        [Required]
+        [Key]
         public Guid PlanItemID { get; set; }
 
         [Required]

@@ -2,6 +2,7 @@
 using JXDevPlanner.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,7 @@ namespace JXDevPlanner.Services
                 CreatedUTC = DateTimeOffset.Now,
                 ModifiedUTC = null
             };
-            GetProjectFor(model.ProjectID).ModifiedUTC = DateTimeOffset.Now;
+            UpdateProjectModifiedDate(model.ProjectID);
             Context.PlanItems.Add(entity);
             return Context.TrySave();
         }
@@ -56,13 +57,14 @@ namespace JXDevPlanner.Services
             entity.Details     = model.Detail;
             entity.ModifiedUTC = DateTimeOffset.Now;
             entity.LastModifiedBy = _userId;
-            GetProjectFor(entity.PlanItemID).ModifiedUTC = DateTimeOffset.Now;
-            return Context.TrySave();
+            UpdateProjectModifiedDate(model.ProjectID);
+            Context.TrySave();
+            return true;
         }
 
         public Guid DeletePlanItem(Guid id) {
             PlanItem val = GetPlanItemById(id);
-            var project = GetProjectFor(val.ProjectID);
+            var project = new ProjectService(_userId).GetProjectById(val.ProjectID);
             project.ModifiedUTC = DateTimeOffset.Now;
             var pid = project.ProjectID;
             //Context.PlanItems.Attach(val);
@@ -72,9 +74,15 @@ namespace JXDevPlanner.Services
             //}
             Context.Promotions.RemoveRange(Context.Promotions.Where(e => e.PlanId == id));
             Context.TrySave();
+            CheckAndRemoveUnbound();
             return pid;
         }
 
+        public bool UpdateProjectModifiedDate(Guid projectId)
+        {
+            new ProjectService(_userId).GetProjectById(projectId).ModifiedUTC = DateTimeOffset.Now;
+            return Context.TrySave();
+        }
         public Project GetProjectFor(Guid id) {
             var q = new ProjectService(_userId).GetProject(GetProjectIdFor(id));
             return q;

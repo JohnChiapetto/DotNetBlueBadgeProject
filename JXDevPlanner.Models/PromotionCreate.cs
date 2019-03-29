@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JXDevPlanner.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace JXDevPlanner.Models
 
         public PromotionCreate() { }
         public PromotionCreate(Guid pid) { this.PlanId = pid; }
+        public PromotionCreate(PlanItem item) : this(item.PlanItemID) { this.FromCategory = item.Category; }
         public PromotionCreate(Guid planID,int category,int to,string summary,string detail) : this(planID)
         {
             FromCategory = category;

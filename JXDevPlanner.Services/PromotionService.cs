@@ -45,7 +45,8 @@ namespace JXDevPlanner.Services
             };
 
             Context.Promotions.Add(entity);
-            Context.PlanItems.Where(e => e.PlanItemID == model.PlanId).Single().Category = model.ToCategory;
+            var entx = Context.PlanItems.Where(e => e.PlanItemID == model.PlanId).Single();
+            entx.Category = model.ToCategory;
             return Context.TrySave();
         }
         public void EditPromotion(PromotionEdit model)

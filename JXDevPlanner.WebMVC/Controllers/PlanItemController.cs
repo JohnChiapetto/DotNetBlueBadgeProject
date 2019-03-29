@@ -62,6 +62,13 @@ namespace JXDevPlanner.WebMVC.Controllers
             return Edit(model);
         }
 
+        public ActionResult SaveEdits(string id,string name,string desc)
+        {
+            var model = new PlanItemEdit { PlanID = Guid.Parse(id),Name = name,Detail = desc };
+            model.ProjectID = CreateService().GetProjectIdFor(model.PlanID);
+            return Edit(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(PlanItemEdit model) {
